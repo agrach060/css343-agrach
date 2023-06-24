@@ -8,6 +8,7 @@ The program then randomly shuffles the 9 digits and prints them in 3x3 format.
 Below is the output of this program showing the command line argument as 2, and the 9 digits user input as “123456789”, and the corresponding output:
 
 ![Screenshot showing the command line argument as 2, and the 9 digits user input as “123456789”, and the corresponding output](cm2in123456789.png)
+
 Another example of the output is when the user inputs incorrect number of digits:
 
 ![Screenshot showing the output when the user inputs incorrect number of digits](incorrect_input.png)
