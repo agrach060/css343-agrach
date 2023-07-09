@@ -1,7 +1,7 @@
 // Originally solved without helper method but couldn't figure out how
 // to return a null since the answer should be a vector.
 // Referred to https://walkccc.me/LeetCode/problems/0145/ for help.
-// Passed 68/68 cases
+
 class Solution
 {
 public:

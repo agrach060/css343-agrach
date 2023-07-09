@@ -1,5 +1,5 @@
 // Solved based on the class notes
-// Passed 2/2 cases
+
 class Solution
 {
 public:

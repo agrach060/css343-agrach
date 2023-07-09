@@ -1,6 +1,5 @@
 // Had to look up the solution at https://walkccc.me/LeetCode/problems/0973/
 // Understood the concept of maxHeap
-// Passed 2/2 cases
 
 class Solution
 {

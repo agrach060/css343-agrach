@@ -1,6 +1,5 @@
 // Solved until how to find the smallest node.
 // Referred to solution on https://walkccc.me/LeetCode/problems/0450/
-// Passed 3/3 cases
 
 class Solution
 {

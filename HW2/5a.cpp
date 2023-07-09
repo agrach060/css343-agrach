@@ -1,6 +1,5 @@
 // I used the class notes about level-order traverse of the tree for this task.
 // In specific, the code for tracking level/depth/step
-// Passed 2/2 cases
 
 class Solution
 {
