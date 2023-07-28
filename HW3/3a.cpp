@@ -8,19 +8,23 @@ public:
     {
         // define adjacency list
         vector<vector<int>> adjList(numCourses);
+        // create adjacency list
         // iterate through edges
-        for (vector<int> &courses : prerequisites)
+        for (vector<int> &edges : prerequisites)
         {
             // point the second element to the first
-            adjList[courses[1]].push_back(courses[0]);
+            adjList[edges[1]].push_back(edges[0]);
         }
-        // create a "stack"
-        vector<int> s;
+
+        // create a vector to store the topological order
+        vector<int> ans;
+        // create a vector to store visited nodes, set all to unvisited
+        // 0 - unvisited, 1 - being visited, 2 - visited
         vector<int> visited(numCourses, 0);
         // check if the graph has a cycle
         for (int i = 0; i < numCourses; i++)
         {
-            if (visited[i] == 0 && dfs(i, adjList, s, visited))
+            if (visited[i] == 0 && !dfs(i, adjList, ans, visited))
             {
                 // if the node is unvisited and the dfs returned "true",
                 // then there is a cycle in the graph
@@ -28,33 +32,37 @@ public:
                 return {};
             }
         }
-        reverse(s.begin(), s.end());
-        return s;
+        return ans;
     }
 
-    bool dfs(int i, vector<vector<int>> &adjList, vector<int> &s, vector<int> &visited)
+    bool dfs(int i, vector<vector<int>> &adjList, vector<int> &result, vector<int> &visited)
     {
+        // we found the cycle
+        if (visited[i] == 1)
+        {
+            return false;
+        }
+        // the node is already visited, don't need to explore again
+        if (visited[i] == 2)
+        {
+            return true;
+        }
         // set the state of each node as "currently visiting"
         visited[i] = 1;
+
         // visit the neighbours of each node
-        for (int v : adjList[i])
+        for (int neighbor : adjList[i])
         {
-            // cycle is found
-            if (visited[v] == 1)
+            if (!dfs(neighbor, adjList, result, visited))
             {
-                return true;
-            }
-            // if the node has not been visited, perform another dfs
-            if (visited[v] == 0 && dfs(v, adjList, s, visited))
-            {
-                return true;
+                return false;
             }
         }
-        // mark the node as visited
+        // mark as visited
         visited[i] = 2;
-        // the "stack" is now holding the elements in reversed topological order
-        s.push_back(i);
-        // return that the graph doesn't have a cycle in it
-        return false;
+        // reverse the result
+        result.insert(result.begin(), i);
+
+        return true;
     }
 };
