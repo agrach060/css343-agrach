@@ -1,5 +1,4 @@
-// I started solving this problem by my self but I was going in the wrong direction
-// so I had to look up the solution, which I processed and understood from: https://www.youtube.com/watch?v=GSE0-dReL6Y
+// Solved using class notes and https://www.youtube.com/watch?v=GSE0-dReL6Y
 
 class Solution
 {
