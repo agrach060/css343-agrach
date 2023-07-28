@@ -3,14 +3,18 @@
 class Solution
 {
 public:
-    int rows;
-    int cols;
     bool exist(vector<vector<char>> &board, string word)
     {
         // # of rows in the board
-        rows = board.size();
+        int rows = board.size();
+        // if the grid is empty, return 0 islands
+        if (rows == 0)
+            return 0;
         // # of columns in the board
-        cols = board[0].size();
+        int cols = board[0].size();
+        // if the grid is empty, return 0 islands
+        if (cols == 0)
+            return 0;
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < cols; j++)
@@ -25,21 +29,23 @@ public:
         return false;
     }
     // check if the coordinates are inside the board
-    bool isSafe(int i, int j)
+    bool isSafe(int i, int j, int rows, int cols)
     {
         return i >= 0 && i < rows && j >= 0 && j < cols;
     }
 
-    bool dfs(vector<vector<char>> &board, string &word, int x, int y, int s)
+    bool dfs(vector<vector<char>> &board, string &word, int x, int y, int i)
     {
-        // s - current index in the word
+        int rows = board.size();
+        int cols = board[0].size();
+        // i - current index in the word
         // check if the cell is within the board, if the character is in the word or if it is invalid
-        if (!isSafe(x, y) || board[x][y] != word[s] || board[x][y] == '/')
+        if (!isSafe(x, y, rows, cols) || board[x][y] != word[i] || board[x][y] == '/')
         {
             return false;
         }
         // if the index matches the position in the word, we found it
-        if (s == word.length() - 1)
+        if (i == word.length() - 1)
         {
             return true;
         }
@@ -47,10 +53,10 @@ public:
         const char cache = board[x][y];
         board[x][y] = '/';
         // check the neighbor cells
-        const bool isExist = dfs(board, word, x + 1, y, s + 1) ||
-                             dfs(board, word, x - 1, y, s + 1) ||
-                             dfs(board, word, x, y + 1, s + 1) ||
-                             dfs(board, word, x, y - 1, s + 1);
+        const bool isExist = dfs(board, word, x + 1, y, i + 1) ||
+                             dfs(board, word, x - 1, y, i + 1) ||
+                             dfs(board, word, x, y + 1, i + 1) ||
+                             dfs(board, word, x, y - 1, i + 1);
         // return the cell to the original state
         board[x][y] = cache;
 
