@@ -44,25 +44,30 @@ public:
     {
 
         // check if the coordinates are inside the grid or if it is water or the coordinates are outside the grid
-        if(!isSafe(x, y, rows, cols) || grid[x][y] == '0' || visited.find(x * cols + y) != visited.end(){
+        if (!isSafe(x, y, rows, cols) || grid[x][y] == '0' || visited.find(x * cols + y) != visited.end())
+        {
             return;
         }
 
         // Mark the cell as visited
         visited.insert(x * cols + y);
-        
+
         grid[x][y] = '0';
         // look for the neighbors in 4 directions
-        if(x+1 < grid.size() && grid[x+1][y] == '1'){
+        if (x + 1 < grid.size() && grid[x + 1][y] == '1')
+        {
             dfs(grid, x + 1, y, visited, rows, cols);
         }
-        if(x-1 >= 0 && grid[x-1][y] == '1'){
+        if (x - 1 >= 0 && grid[x - 1][y] == '1')
+        {
             dfs(grid, x - 1, y, visited, rows, cols);
         }
-        if(y-1 >= 0 && grid[x][y-1] == '1'){
+        if (y - 1 >= 0 && grid[x][y - 1] == '1')
+        {
             dfs(grid, x, y - 1, visited, rows, cols);
         }
-        if(y+1 < grid[0].size() && grid[x][y+1] == '1'){
+        if (y + 1 < grid[0].size() && grid[x][y + 1] == '1')
+        {
             dfs(grid, x, y + 1, visited, rows, cols);
         }
     }
