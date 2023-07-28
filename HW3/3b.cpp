@@ -29,57 +29,31 @@ public:
     {
         // check if the node exists
         if (node == nullptr)
-            return nullptr;
-        vector<Node *> visited(101, nullptr);
-        // create a new node for the clone graph
-        Node *copy = new Node(node->val);
-        // mark the node as visited
-        visited[node->val] = copy;
-        // visit all the neightbours of the node
-        for (Node *curr : node->neighbors)
         {
-            if (visited[curr->val] == nullptr)
-            {
-                // if the node hasn't been visited, create this node for the clone graph
-                Node *newNode = new Node(curr->val);
-                // make it a copy node's neighbor
-                copy->neighbors.push_back(newNode);
-                // perform the dfs on this node
-                dfs(curr, newNode, visited);
-            }
-            else
-            {
-                // if the node has been visited, add the node from the visited array as its neighbor
-                copy->neighbors.push_back(visited[curr->val]);
-            }
+            return nullptr;
         }
-        return copy;
+        // create a struct to keep track of visited nodes
+        unordered_map<int, Node *> visited;
+        // perform the dfs on the node and return the cloned graph
+        return dfs(node, visited);
     }
 
-    void dfs(Node *curr, Node *node, vector<Node *> &visited)
+    Node *dfs(Node *node, unordered_map<int, Node *> &visited)
     {
-        // curr - current original node
-        // node - current clone node
-        // mark the newly made node as visited
-        visited[node->val] = node;
-        // go through all the adjacent nodes of the original node
-        for (Node *adj : curr->neighbors)
+        // if the node has been visited, return the clone
+        if (visited.find(node->val) != visited.end())
         {
-            // if the neighbor is not visited
-            if (visited[adj->val] == nullptr)
-            {
-                // create a new node
-                Node *newNode = new Node(adj->val);
-                // make it a current node's neighbor
-                node->neighbors.push_back(newNode);
-                dfs(adj, newNode, visited);
-            }
-            else
-            {
-                // if the node has been visited, take this node from the visited array
-                // and make it a current node's neighbor
-                node->neighbors.push_back(visited[adj->val]);
-            }
+            return visited[node->val];
         }
+        // copy the value of the original node into the new node
+        Node *copy = new Node(node->val);
+        visited[node->val] = copy;
+        // traverse through the neighbors and return their dfs
+        for (Node *neighbor : node->neighbors)
+        {
+            copy->neighbors.push_back(dfs(neighbor, visited));
+        }
+
+        return copy;
     }
 };
